@@ -1,4 +1,4 @@
-FROM node:18.13
+FROM node:18.13 as builder
 
 RUN mkdir -p /app
 WORKDIR /app
@@ -13,9 +13,13 @@ RUN ls
 FROM nginx:latest
 
 RUN pwd
-RUN ls /app/
 RUN rm -rf /etc/nginx/conf.d
 COPY conf /etc/nginx
+
+COPY --from=builder /app/secrets /usr/share/nginx
+COPY --from=builder /app/build /usr/share/nginx/html
+RUN ls  /usr/share/nginx
+RUN ls /usr/share/nginx/html
 
 EXPOSE 80
 EXPOSE 443
