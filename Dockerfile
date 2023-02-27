@@ -7,13 +7,15 @@ ADD . /app/
 RUN rm -rf node_modules && rm -rf package-lock.json || true
 RUN yarn i
 RUN npm run build
+RUN pwd
+RUN ls
 
 FROM nginx:latest
 
 RUN pwd
 RUN ls
-RUN ls /etc/nginx
-RUN ls /etc/nginx/sites-available
+RUN cat /etc/nginx/conf.d
+RUN cat /etc/nginx/nginx.conf
 RUN rm -rf /etc/nginx/conf.d
 COPY conf /etc/nginx
 
