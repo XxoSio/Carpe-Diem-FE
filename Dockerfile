@@ -5,7 +5,10 @@ WORKDIR /app
 ADD . /app/
 
 RUN rm -rf node_modules && rm -rf package-lock.json || true
-RUN yarn install
+RUN yarn config delete proxy
+RUN yarn config delete https-proxy
+RUN yarn cache clean
+RUN yarn install --network-timeout 600000
 RUN npm run build
 RUN pwd
 RUN ls
