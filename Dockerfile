@@ -13,9 +13,7 @@ RUN ls
 FROM nginx:latest
 
 RUN pwd
-RUN ls
-RUN cat /etc/nginx/conf.d
-RUN cat /etc/nginx/nginx.conf
+RUN ls /app/
 RUN rm -rf /etc/nginx/conf.d
 COPY conf /etc/nginx
 
