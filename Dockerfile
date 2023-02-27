@@ -10,6 +10,10 @@ RUN npm run build
 
 FROM nginx:latest
 
+RUN pwd
+RUN ls
+RUN ls /etc/nginx
+RUN ls /etc/nginx/sites-available
 RUN rm -rf /etc/nginx/conf.d
 COPY conf /etc/nginx
 
