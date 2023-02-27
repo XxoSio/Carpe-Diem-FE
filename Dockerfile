@@ -5,6 +5,7 @@ WORKDIR /app
 ADD . /app/
 
 RUN rm -rf node_modules && rm -rf package-lock.json || true
+RUN npm cache clear
 RUN yarn install
 RUN npm run build
 RUN pwd
@@ -23,6 +24,5 @@ RUN ls /usr/share/nginx/html
 
 EXPOSE 80
 EXPOSE 443
-
 
 CMD ["nginx", "-g", "daemon off;"]
