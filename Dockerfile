@@ -5,7 +5,7 @@ WORKDIR /app
 ADD . /app/
 
 RUN rm -rf node_modules && rm -rf package-lock.json || true
-RUN yarn i
+RUN yarn install
 RUN npm run build
 RUN pwd
 RUN ls
