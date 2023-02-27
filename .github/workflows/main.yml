@@ -1,0 +1,49 @@
+name: Deploy to server
+on:
+    push:
+        branches: [master]
+
+jobs:
+    build:
+        name: Build
+        runs-on: [self-hosted, label-2]
+        strategy:
+            matrix:
+                node-version: [18.13.0]
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+
+            - name: Setting Node version
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - name: Setting ENV
+              working-directory: ./
+              run: |
+                  pwd
+                  ls -al
+                  echo "${{ secrets.PRODUCTION_ENV_CLIENT }}" > .env
+                  echo "${{ secrets.SSL_PRIVATE_KEY }}" > privkey.pem
+                  echo "${{ secrets.SSL_CERTIFICATE }}" > fullchain.pem
+                  echo "${{ secrets.SSL_OPTIONS_NGINX }}" > options-ssl-nginx.conf
+                  echo "${{ secrets.SSL_DHPARAMS }}" > ssl-dhparams.pem
+
+    deploy:
+        needs: build
+        name: Deploy
+        runs-on: [self-hosted, label-2]
+        steps:
+            - name: Check pwd
+              working-directory: ./
+              run: |
+                  pwd
+                  ls -ali
+
+            - name: Docker run
+              run: |
+                  docker container ls -a
+                  docker stop carpediem-client && docker rm carpediem-client && docker rmi carpediem-client:latest || true
+                  docker build . -t carpediem-client:latest
+                  docker run -d -p 80:80 -p 443:443 --name carpediem-client --restart always carpediem-client:latest
