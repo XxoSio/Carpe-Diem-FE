@@ -45,6 +45,7 @@ jobs:
 
             - name: Docker run
               run: |
+                  docker system prune -af
                   docker container ls -a
                   docker stop carpediem-client && docker rm carpediem-client && docker rmi carpediem-client:latest || true
                   docker build . -t carpediem-client:latest
