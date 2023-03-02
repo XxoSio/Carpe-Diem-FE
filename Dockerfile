@@ -3,7 +3,9 @@ FROM node:18.13 as builder
 RUN mkdir -p /app
 WORKDIR /app
 ADD . /app/
+COPY ./build /app/
 
+RUN ls
 RUN rm -rf node_modules && rm -rf package-lock.json || true
 RUN pwd
 RUN ls
