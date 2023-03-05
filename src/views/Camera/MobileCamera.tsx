@@ -425,15 +425,16 @@ function MobileCamera(props: any) {
                         {onRemoteStream ? (
                             <video ref={mobileRef} autoPlay muted onPlay={onPlay} width={constraints.video.width} height={constraints.video.height} />
                         ) : (
-                            <video
-                                src={`https://${config.aws.bucket_name}.s3.${config.aws.region}.amazonaws.com/assets/loading-video.mp4`}
-                                autoPlay
-                                loop
-                                muted
-                                style={{ objectFit: 'cover' }}
-                                width={constraints.video.width}
-                                height={constraints.video.height}
-                            />
+                            ''
+                            // <video
+                            //     src={`https://${config.aws.bucket_name}.s3.${config.aws.region}.amazonaws.com/assets/loading-video.mp4`}
+                            //     autoPlay
+                            //     loop
+                            //     muted
+                            //     style={{ objectFit: 'cover' }}
+                            //     width={constraints.video.width}
+                            //     height={constraints.video.height}
+                            // />
                         )}
                     </div>
                 </div>

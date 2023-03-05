@@ -181,6 +181,7 @@ function WebCamera(props: any) {
                 recentRecordTime = expressions.time; // 최근 감정 갱신 시간
                 mediaRecorder.start();
                 recordVideo(mediaRecorder); // 녹화시작
+                console.log('$$$$$$$$$$$$$$$$$', Date.now());
                 setRecordStarted(true);
                 console.log('녹화 시작');
             }
@@ -216,6 +217,7 @@ function WebCamera(props: any) {
                     recentRecordTime = 0;
                     console.log('녹화 중지');
                     setRecordStarted(false);
+                    console.log('$$$$$$$$$$$$$$$$$', Date.now());
                 } catch (err) {
                     console.log(err);
                 }
