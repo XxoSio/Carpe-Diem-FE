@@ -13,11 +13,6 @@ import Share from '../../Emotion/Share';
 import axios from 'axios';
 import { Typography } from '@mui/material';
 
-const StyledContent = styled.div`
-    display: flex;
-    justify-content: center;
-`;
-
 export default function LibraryContent() {
     const [realData, setRealData] = useState<any>({});
     const [data, setData] = useState<any>([]);
@@ -119,7 +114,6 @@ export default function LibraryContent() {
             >
                 감정리포트
             </Typography>
-            {/* <Alert variant="outlined" severity="info" style={{ width: '60%', marginBottom: '40px', marginLeft: '15%' }}> */}
             <div style={{ display: 'flex' }}>
                 <Alert variant="outlined" severity="info" style={{ width: '60%', marginLeft: '18%' }}>
                     <AlertTitle>
@@ -134,7 +128,6 @@ export default function LibraryContent() {
                                 color: '#fff',
                             }}
                         />
-                        {/* <DownloadIcon /> */}
                     </IconButton>
                     <Share sumEmotion={sumEmotion} />
                 </span>
@@ -143,13 +136,6 @@ export default function LibraryContent() {
                 <EmotionLineChart data={data} />
                 <EmotionPieChart data={data} sumEmotion={sumEmotion} />
             </div>
-            <StyledContent>
-                {/* <Alert variant="outlined" severity="info" style={{ width: '70%', marginBottom: '40px' }}>
-                    <AlertTitle>
-                        <span style={{ color: '#a5dcff' }}>통계 자료는 일주일 단위로 갱신돼요!</span>
-                    </AlertTitle>
-                </Alert> */}
-            </StyledContent>
         </MainLayout>
     );
 }

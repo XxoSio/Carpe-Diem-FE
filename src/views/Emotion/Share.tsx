@@ -87,9 +87,16 @@ const CardBox = styled.div`
     padding: 1rem;
 `;
 
-const Share = (props: any) => {
+interface SortedEmotionType {
+    emotion: string;
+    value: number;
+}
+
+const Share = (props: { sumEmotion: Record<string, number> }) => {
     const [friendList, setFriendList] = useState([]);
     const [allFriendList, setAllFriendList] = useState([]);
+    let sortedEmotion: SortedEmotionType[] = [];
+
     React.useEffect(function () {
         axios({
             method: 'get',
@@ -99,12 +106,15 @@ const Share = (props: any) => {
             .then(function (result) {
                 setFriendList(result.data);
                 setAllFriendList(result.data);
-                props.sort();
             })
             .catch(function (error) {
                 console.error('friend 에러발생: ', error);
             });
     }, []);
+
+    sortedEmotion = Object.entries(props.sumEmotion)
+        .map(([emotion, value]) => ({ emotion, value }))
+        .sort((a, b) => b.value - a.value);
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
